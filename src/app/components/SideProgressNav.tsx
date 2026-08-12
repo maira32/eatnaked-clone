@@ -27,7 +27,7 @@ export default function SideProgressNav() {
           }
         });
       },
-      { rootMargin: "-45% 0px -45% 0px", threshold: 0 }
+      { rootMargin: "-20% 0px -20% 0px", threshold: 0 }
     );
 
     ITEMS.forEach((item) => {
