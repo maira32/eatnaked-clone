@@ -40,13 +40,11 @@ export default function SideProgressNav() {
     return () => observer.disconnect();
   }, []);
 
-  // 1. Determine if the nav should be visible (hidden when on "Trusted")
   const isVisible = active !== "Trusted";
 
   return (
     <motion.nav
       initial={{ opacity: 0, x: 16 }}
-      // 2. Animate opacity, position, and pointer events based on visibility
       animate={{ 
         opacity: isVisible ? 1 : 0, 
         x: isVisible ? 0 : 20,

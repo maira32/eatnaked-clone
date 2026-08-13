@@ -136,8 +136,11 @@ export default function ReadySection() {
   }, []);
 
   return (
-    <section className="relative w-full overflow-hidden bg-black py-28">
-      <div 
+<section 
+      id="trusted" 
+      data-nav-label="Trusted"
+      className="relative w-full overflow-hidden bg-black py-28"
+    >      <div 
         className="pointer-events-none absolute inset-0 z-0 opacity-80"
         style={{
           backgroundImage: `
