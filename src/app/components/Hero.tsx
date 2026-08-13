@@ -105,12 +105,12 @@ export default function Hero() {
           <AnimatedHeadline />
         </div>
 
-        <div className="relative z-0 mx-auto -mt-6 w-full max-w-5xl px-4 sm:-mt-8 sm:px-6 lg:-mt-10 lg:max-w-[1400px]">
+        <div className="relative z-0 mx-auto -mt-4 w-full max-w-6xl px-4 sm:-mt-6 sm:px-6 lg:-mt-8 lg:max-w-[1600px]">
           <motion.div
             initial={{ opacity: 0, y: 40, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative h-[45vh] w-full overflow-hidden rounded-3xl bg-transparent sm:h-[55vh] lg:h-[68vh]"
+            className="relative h-[55vh] w-full overflow-hidden rounded-3xl bg-transparent sm:h-[68vh] lg:h-[80vh]"
           >
             <video
               src="/assets/videos/hero-showreel.mp4"
@@ -120,7 +120,6 @@ export default function Hero() {
               playsInline
               className="absolute inset-0 h-full w-full rounded-3xl object-cover"
             />
-
             {BOWL_LABELS.map((item, i) => (
               <motion.div
                 key={item.label}
