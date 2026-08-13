@@ -16,23 +16,23 @@ const BOWL_LABELS = [
   {
     label: "Vegetables",
     imageSrc: "/assets/images/vegetables-icon.png",
-    className: "left-[8%] bottom-[15%] md:left-[22%] md:bottom-[20%]",
+    className: "left-[2%] bottom-[12%] sm:left-[8%] sm:bottom-[15%] md:left-[22%] md:bottom-[20%]",
   },
   {
     label: "Proteins",
     imageSrc: "/assets/images/proteins-icon.png",
-    className: "right-[10%] bottom-[8%] md:right-[22%] md:bottom-[15%]",
+    className: "right-[2%] bottom-[6%] sm:right-[10%] sm:bottom-[8%] md:right-[22%] md:bottom-[15%]",
   },
   {
     label: "Grains",
     imageSrc: "/assets/images/grains-icon.png",
-    className: "right-[8%] top-[15%] md:right-[20%] md:top-[25%]",
+    className: "right-[4%] top-[10%] sm:right-[8%] sm:top-[15%] md:right-[20%] md:top-[25%]",
   },
 ];
 
 function AnimatedHeadline() {
   return (
-    <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.05] text-white sm:text-6xl lg:text-7xl">
+    <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.05] text-white sm:text-5xl md:text-6xl lg:text-7xl">
       {HEADLINE_LINES.map((line, lineIdx) => (
         <span key={line} className="block overflow-hidden">
           {line.split(" ").map((word, wordIdx) => (
@@ -92,12 +92,12 @@ export default function Hero() {
       className="relative h-[100dvh] w-full overflow-hidden bg-black"
     >
       <div ref={contentRef} className="relative h-full w-full">
-        <div className="relative z-20 flex flex-col items-center px-6 pt-20 text-center lg:pt-24">
+        <div className="relative z-20 flex flex-col items-center px-4 pt-16 text-center sm:px-6 sm:pt-20 lg:pt-24">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.05 }}
-            className="mb-4 flex items-center gap-2 text-sm text-white/80"
+            className="mb-4 flex items-center gap-2 text-xs text-white/80 sm:text-sm"
           >
             It&apos;s a Lifestyle <span aria-hidden="true">🌱</span>
           </motion.div>
@@ -105,12 +105,12 @@ export default function Hero() {
           <AnimatedHeadline />
         </div>
 
-        <div className="relative z-0 mx-auto -mt-16 w-full max-w-4xl px-4 sm:px-6 lg:-mt-24 lg:max-w-5xl">
+        <div className="relative z-0 mx-auto -mt-6 w-full max-w-5xl px-4 sm:-mt-8 sm:px-6 lg:-mt-10 lg:max-w-[1400px]">
           <motion.div
             initial={{ opacity: 0, y: 40, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl bg-transparent lg:aspect-[21/9]"
+            className="relative h-[45vh] w-full overflow-hidden rounded-3xl bg-transparent sm:h-[55vh] lg:h-[68vh]"
           >
             <video
               src="/assets/videos/hero-showreel.mp4"
@@ -136,14 +136,14 @@ export default function Hero() {
                     delay: 1.1 + i * 0.15,
                   },
                 }}
-                className={`absolute z-10 flex items-center gap-2 rounded-full bg-[#201C19]/60 px-5 py-2.5 text-sm font-medium text-white backdrop-blur-md ${item.className}`}
+                className={`absolute z-10 flex items-center gap-1.5 sm:gap-2 rounded-full bg-[#201C19]/60 px-3 py-1.5 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-medium text-white backdrop-blur-md ${item.className}`}
               >
                 <Image
                   src={item.imageSrc}
                   alt={`${item.label} icon`}
                   width={20}
                   height={20}
-                  className="object-contain"
+                  className="h-4 w-4 sm:h-5 sm:w-5 object-contain"
                   aria-hidden="true"
                 />
                 <span>{item.label}</span>
@@ -152,24 +152,24 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        <div className="absolute bottom-10 left-6 z-10 flex flex-col gap-6 lg:bottom-14 lg:left-16">
-          <div className="flex flex-col gap-3">
-            <div className="flex gap-3">
+        <div className="absolute bottom-24 left-4 z-10 flex flex-col gap-4 sm:bottom-10 sm:left-6 sm:gap-6 lg:bottom-14 lg:left-16">
+          <div className="flex flex-col gap-2 sm:gap-3">
+            <div className="flex gap-2 sm:gap-3">
               <motion.span
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 1.3 }}
-                className="rounded-full border border-white/20 px-6 py-2.5 text-[15px] font-medium text-white"
+                className="rounded-full border border-white/20 px-4 py-1.5 sm:px-6 sm:py-2.5 text-xs sm:text-[15px] font-medium text-white"
               >
                 {PILLS[0]}
               </motion.span>
             </div>
-            <div className="flex gap-3">
+            <div className="flex gap-2 sm:gap-3">
               <motion.span
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 1.42 }}
-                className="rounded-full border border-white/20 px-6 py-2.5 text-[15px] font-medium text-white"
+                className="rounded-full border border-white/20 px-4 py-1.5 sm:px-6 sm:py-2.5 text-xs sm:text-[15px] font-medium text-white"
               >
                 {PILLS[1]}
               </motion.span>
@@ -177,7 +177,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 1.54 }}
-                className="rounded-full border border-white/20 px-6 py-2.5 text-[15px] font-medium text-white"
+                className="rounded-full border border-white/20 px-4 py-1.5 sm:px-6 sm:py-2.5 text-xs sm:text-[15px] font-medium text-white"
               >
                 {PILLS[2]}
               </motion.span>
@@ -188,14 +188,14 @@ export default function Hero() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1.6 }}
-            className="max-w-xs"
+            className="max-w-[200px] sm:max-w-xs"
           >
-            <h2 className="text-[32px] font-semibold leading-tight tracking-tight text-white">
+            <h2 className="text-xl sm:text-[32px] font-semibold leading-tight tracking-tight text-white">
               From Our Kitchen
               <br />
               to Your Door
             </h2>
-            <p className="mt-3 text-base text-white/60">
+            <p className="mt-2 sm:mt-3 text-xs sm:text-base text-white/60">
               Healthy eating made effortless. Fuel your body and free your time.
             </p>
           </motion.div>
@@ -206,9 +206,9 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.4 }}
-          className="absolute bottom-0 right-0 z-10 flex items-center gap-2 rounded-tl-[2.5rem] bg-[#c16533] px-10 py-7 text-lg font-medium text-white transition-colors hover:bg-[#a8572b]"
+          className="absolute bottom-0 right-0 z-10 flex items-center gap-1.5 sm:gap-2 rounded-tl-[1.5rem] sm:rounded-tl-[2.5rem] bg-[#c16533] px-5 py-4 sm:px-10 sm:py-7 text-sm sm:text-lg font-medium text-white transition-colors hover:bg-[#a8572b]"
         >
-          <span aria-hidden="true" className="text-xl">↗</span> Contact Us
+          <span aria-hidden="true" className="text-base sm:text-xl">↗</span> Contact Us
         </motion.a>
       </div>
     </section>

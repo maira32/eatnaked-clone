@@ -52,7 +52,7 @@ export default function SideProgressNav() {
       }}
       transition={{ duration: 0.4, ease: "easeInOut" }}
       aria-hidden="true"
-      className="hidden xl:flex fixed right-4 top-1/2 -translate-y-1/2 z-50 flex-col items-end gap-1.5"
+className="flex fixed right-2 md:right-4 top-1/2 -translate-y-1/2 z-50 flex-col items-end gap-1.5 scale-90 md:scale-100 origin-right"
     >
       {ITEMS.map((item) => {
         const isActive = item === active;
