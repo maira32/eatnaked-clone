@@ -40,7 +40,7 @@ export default function SideProgressNav() {
     return () => observer.disconnect();
   }, []);
 
-  const isVisible = active !== "Trusted";
+const isVisible = active !== "Trusted" && active !== "Footer";
 
   return (
     <motion.nav
