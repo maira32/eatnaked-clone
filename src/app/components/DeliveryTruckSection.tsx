@@ -4,7 +4,7 @@ import React from "react";
 
 export default function DeliveryTruckSection() {
   return (
-    <section className="relative h-screen isolate">
+    <section className="relative h-screen isolate"  id="source" data-nav-label="Source">
       <video
         className="absolute inset-0 -z-10 h-full w-full object-cover pointer-events-none select-none"
         muted

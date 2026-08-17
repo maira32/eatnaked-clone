@@ -1,0 +1,222 @@
+/* ========== BUTTONS ========== */
+.cta-button {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  padding: 0.6rem 3rem 0.6rem 0.6rem;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 10rem;
+  cursor: pointer;
+}
+
+.cta-button .cta-button__background {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(244, 120, 62, 0.23);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 10rem;
+}
+
+.cta-button.is--clear .cta-button__background {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.cta-button .cta-button__blur {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 100%;
+  background: var(--orange);
+  top: 50%;
+  left: 2rem;
+  transform: translate(0%, -50%);
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 0.6s var(--ease);
+}
+
+.cta-button .cta-button__inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.cta-button .cta-button__inner .cta-button__icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 100%;
+  background-color: var(--orange);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.6s var(--ease), background-color 0.6s var(--ease);
+  will-change: transform;
+  flex-shrink: 0;
+}
+
+.cta-button .cta-button__inner .cta-button__icon svg {
+  width: 1.5rem;
+  height: auto;
+  transition: transform 0.6s var(--ease);
+}
+
+.cta-button .cta-button__inner .cta-button__text {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta-button .cta-button__inner .cta-button__text--span {
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 150%;
+  text-shadow: 0px -4rem 0px #fff;
+  -webkit-text-shadow: 0px -4rem 0px #fff;
+  display: inline-block;
+  transition: transform 0.6s var(--ease);
+  white-space: nowrap;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cta-button:hover .cta-button__text--span {
+    transform: translateY(4rem);
+  }
+
+  .cta-button:hover .cta-button__inner .cta-button__icon {
+    transform: scale(0.2);
+    background-color: #fff;
+  }
+
+  .cta-button:hover .cta-button__inner .cta-button__icon svg {
+    transform: scale(0) rotate(45deg);
+  }
+
+  .cta-button:hover .cta-button__blur {
+    opacity: 0;
+  }
+}
+
+@media (orientation: portrait) {
+  .cta-button {
+    padding: 0.5rem 2.5rem 0.5rem 0.5rem;
+    border-radius: 8rem;
+  }
+
+  .cta-button .cta-button__background {
+    backdrop-filter: blur(11px);
+    -webkit-backdrop-filter: blur(11px);
+    border-radius: 8rem;
+  }
+
+  .cta-button .cta-button__blur {
+    width: 2.2rem;
+    height: 2.2rem;
+    left: 1.7rem;
+  }
+
+  .cta-button .cta-button__inner {
+    gap: 1.3rem;
+  }
+
+  .cta-button .cta-button__inner .cta-button__icon {
+    width: 3.2rem;
+    height: 3.2rem;
+  }
+
+  .cta-button .cta-button__inner .cta-button__icon svg {
+    width: 1rem;
+  }
+
+  .cta-button .cta-button__inner .cta-button__text--span {
+    font-size: 1.4rem;
+  }
+}
+
+/* custom button  */
+.custom-button {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  padding: 1.7rem 3.8rem;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 10rem;
+}
+
+.custom-button .custom-button__background {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(244, 120, 62, 0.23);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 10rem;
+  pointer-events: none;
+  user-select: none;
+  transition: background 0.6s var(--ease);
+}
+
+.custom-button.is--green .custom-button__background {
+  background: rgba(43, 107, 34, 0.23);
+}
+
+.custom-button .custom-button__blur {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 100%;
+  background: var(--orange);
+  top: 50%;
+  left: 2rem;
+  transform: translate(0%, -50%);
+  pointer-events: none;
+  user-select: none;
+}
+
+.custom-button.is--green .custom-button__blur {
+  background: #2b6b22;
+}
+
+.custom-button .custom-button__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-button .custom-button__inner .custom-button__text {
+  overflow: hidden;
+  height: fit-content;
+  display: flex;
+}
+
+.custom-button .custom-button__inner .custom-button__text .custom-button__text--span {
+  font-size: clamp(10px, 2rem, 30px);
+  font-weight: 500;
+  line-height: 1;
+  text-shadow: 0px -3rem 0px #fff;
+  -webkit-text-shadow: 0px -3rem 0px #fff;
+  display: inline-block;
+  transition: transform 0.6s var(--ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .custom-button:hover .custom-button__text--span {
+    transform: translateY(3rem);
+  }
+
+  .custom-button:hover .custom-button__background {
+    background: rgba(244, 120, 62, 0.6);
+  }
+
+  .custom-button.is--green:hover .custom-button__background {
+    background: rgba(43, 107, 34, 0.5);
+  }
+}

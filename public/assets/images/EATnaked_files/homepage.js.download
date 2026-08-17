@@ -1,0 +1,96 @@
+import "../config/gsap-config.js";
+import { LenisSmooth } from "../config/scrollsmooth.js";
+import { Navbar } from "../components/navbar.js";
+import { Preloader } from "../components/preloader.js";
+import { HomepageAnimations } from "../animations/homepage.js";
+import { ActiveLinks } from "../components/active-links.js";
+import { CursorFollower } from "../components/cursor-follower.js";
+import { CustomSwiper } from "../components/global-swiper.js";
+import { FlickCards } from "../components/flick-cards.js";
+import { Accordion } from "../components/accordion.js";
+import { CustomSlider } from "../components/custom-slider.js";
+import { CustomVimeoPlayer } from "../components/custom-vimeo-player.js";
+import { ImageSequenceLoader } from "../components/image-sequence-loader.js";
+import { SequenceScrollHandler } from "../components/secuence-scroll-handler.js";
+import { SecuenceAnimations } from "../components/secuence-animations.js";
+import { Page } from "../classes/page.js";
+
+window.addEventListener("DOMContentLoaded", async () => {
+  const lenis = new LenisSmooth();
+  const preloader = new Preloader(lenis);
+
+  const partnersimageSequenceLoader = new ImageSequenceLoader().setImagesConfig({
+    extension: "avif",
+    totalFrames: 201,
+    landscapeBasePath: "/assets/secuence-partners/landscape/sdl-",
+    portraitBasePath: "/assets/secuence-partners/portrait/sdp-",
+    batchCount: 8,
+  });
+
+  const partnersSequenceScrollHandler = new SequenceScrollHandler(lenis, partnersimageSequenceLoader, preloader, "partners")
+    .setCanvas("#partners-canvas")
+    .setAnimationTrigger(".partners-sticky")
+    .setInitialConfig({ totalFrames: 201 })
+    .onComplete(() => {
+     // console.log("partners sequence completed - Initializing Vimeo Player");
+    })
+    .setTimeline({ refreshPriority: 7 })
+    .init();
+
+  new Navbar(lenis);
+  new ActiveLinks();
+  new CustomSwiper();
+  new FlickCards();
+  new Accordion();
+  new CustomSlider();
+  new Page().checkIsUserAuthenticated();
+
+  // Instance Secuence Animations
+  const secuenceAnimations = new SecuenceAnimations();
+  secuenceAnimations.partnersAnimation(partnersSequenceScrollHandler);
+
+  const bagimageSequenceLoader = new ImageSequenceLoader().setImagesConfig({
+    extension: "webp",
+    totalFrames: 40,
+    landscapeBasePath: "/assets/secuence-bag/landscape/sdl-",
+    portraitBasePath: "/assets/secuence-bag/portrait/sdp-",
+    batchCount: 4,
+    concurrency: 10,
+  });
+
+  const bagSequenceScrollHandler = new SequenceScrollHandler(lenis, bagimageSequenceLoader, null, "bag")
+    .setCanvas("#bag-canvas")
+    .setAnimationTrigger(".quality-sticky")
+    .setInitialConfig({ totalFrames: 40 })
+    .setTimeline({ refreshPriority: 5 })
+
+    .init();
+
+  secuenceAnimations.bagAnimation(bagSequenceScrollHandler);
+
+  new CustomVimeoPlayer();
+  new HomepageAnimations(lenis);
+
+  // Instances Mouse Followers
+  document.querySelectorAll("[data-drag-container]").forEach((container) => {
+    const className = container.className;
+    const bounds = container.querySelector("[data-drag-bounds]");
+    const track = container.querySelector("[data-drag-track]");
+
+    const cursorFollower = new CursorFollower(container, "Drag", className);
+
+    Draggable.create(track, {
+      type: "x",
+      bounds: bounds,
+      inertia: true,
+      onPress: function () {
+        container.setAttribute("data-is-pressed", "");
+        cursorFollower.isPressed = true;
+      },
+      onRelease: function () {
+        container.removeAttribute("data-is-pressed");
+        cursorFollower.isPressed = false;
+      },
+    });
+  });
+});

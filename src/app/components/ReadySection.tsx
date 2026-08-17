@@ -137,8 +137,8 @@ export default function ReadySection() {
 
   return (
 <section 
-      id="trusted" 
-      data-nav-label="Trusted"
+      id="ready" 
+      data-nav-label="Ready"
       className="relative w-full overflow-hidden bg-black py-28"
     >      <div 
         className="pointer-events-none absolute inset-0 z-0 opacity-80"

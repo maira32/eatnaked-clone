@@ -7,11 +7,9 @@ const ITEMS = [
   "Fresh",
   "Source",
   "Goals",
-  "Trusted",
   "Lifestyle",
   "Ingredients",
   "Our Family",
-  "Table",
 ];
 
 export default function SideProgressNav() {
@@ -30,9 +28,11 @@ export default function SideProgressNav() {
       { rootMargin: "-20% 0px -20% 0px", threshold: 0 }
     );
 
-    ITEMS.forEach((item) => {
+    const sectionsToObserve = [...ITEMS, "Ready", "Footer"];
+
+    sectionsToObserve.forEach((item) => {
       const el = document.getElementById(
-        item.toLowerCase().replace(/\s+/g, "-")
+        item.toLowerCase().replace(/\s+/g, "-") 
       );
       if (el) observer.observe(el);
     });
@@ -40,7 +40,7 @@ export default function SideProgressNav() {
     return () => observer.disconnect();
   }, []);
 
-const isVisible = active !== "Trusted" && active !== "Footer";
+const isVisible = active !== "Ready" && active !== "Footer";
 
   return (
     <motion.nav
