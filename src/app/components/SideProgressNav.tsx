@@ -52,15 +52,15 @@ const isVisible = active !== "Ready" && active !== "Footer";
       }}
       transition={{ duration: 0.4, ease: "easeInOut" }}
       aria-hidden="true"
-className="flex fixed right-2 md:right-4 top-1/2 -translate-y-1/2 z-50 flex-col items-end gap-1.5 scale-90 md:scale-100 origin-right"
+className="flex fixed right-2 md:right-5 top-1/2 -translate-y-1/2 z-50 flex-col items-end gap-2 scale-90 md:scale-100 origin-right"
     >
       {ITEMS.map((item) => {
         const isActive = item === active;
         return (
-          <div key={item} className="flex items-center gap-1.5">
+          <div key={item} className="flex items-center gap-3">
             <span
-              className={`text-[9px] uppercase font-medium tracking-wider transition-colors duration-300 ${
-                isActive ? "text-[#c16533]" : "text-white/30 hover:text-white/50"
+              className={`text-[7px] uppercase font-medium tracking-wider transition-colors duration-300 ${
+                isActive ? "text-[#c16533]" : "text-white/30 hover:text-white/50  gap-3"
               }`}
             >
               {item}
@@ -89,7 +89,7 @@ className="flex fixed right-2 md:right-4 top-1/2 -translate-y-1/2 z-50 flex-col 
                 />
               </motion.svg>
             ) : (
-              <span className="h-[1px] w-2.5 bg-white/30 transition-colors duration-300" />
+              <span className="h-[1px] w-5 bg-white/30 transition-colors duration-300" />
             )}
           </div>
         );

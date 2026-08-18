@@ -16,23 +16,23 @@ const BOWL_LABELS = [
   {
     label: "Vegetables",
     imageSrc: "/assets/images/vegetables-icon.png",
-    className: "left-[2%] bottom-[12%] sm:left-[8%] sm:bottom-[15%] md:left-[22%] md:bottom-[20%]",
+    className: "left-[5%] bottom-[12%] sm:left-[15%] sm:bottom-[15%] lg:left-[31%] lg:bottom-[22%]",
   },
   {
     label: "Proteins",
     imageSrc: "/assets/images/proteins-icon.png",
-    className: "right-[2%] bottom-[6%] sm:right-[10%] sm:bottom-[8%] md:right-[22%] md:bottom-[15%]",
+    className: "right-[5%] bottom-[6%] sm:right-[15%] sm:bottom-[8%] lg:right-[37%] lg:bottom-[17%]",
   },
   {
     label: "Grains",
     imageSrc: "/assets/images/grains-icon.png",
-    className: "right-[4%] top-[10%] sm:right-[8%] sm:top-[15%] md:right-[20%] md:top-[25%]",
+    className: "right-[8%] bottom-[28%] sm:right-[20%] sm:bottom-[32%] lg:right-[32%] lg:bottom-[28%]",
   },
 ];
 
 function AnimatedHeadline() {
   return (
-    <h1 className="max-w-4xl text-4xl font-extrabold leading-[1.05] text-white sm:text-5xl md:text-6xl lg:text-7xl">
+    <h1 className="max-w-3xl text-43l font-bold leading-[1.05] text-white sm:text-4xl md:text-5xl lg:text-[60px]">
       {HEADLINE_LINES.map((line, lineIdx) => (
         <span key={line} className="block overflow-hidden">
           {line.split(" ").map((word, wordIdx) => (
@@ -45,7 +45,7 @@ function AnimatedHeadline() {
                 delay: 0.15 + (lineIdx * line.split(" ").length + wordIdx) * 0.08,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="inline-block mr-[0.28em]"
+              className="mr-[0.28em] inline-block"
             >
               {word}
             </motion.span>
@@ -92,7 +92,8 @@ export default function Hero() {
       className="relative h-[100dvh] w-full overflow-hidden bg-black"
     >
       <div ref={contentRef} className="relative h-full w-full">
-        <div className="relative z-20 flex flex-col items-center px-4 pt-16 text-center sm:px-6 sm:pt-20 lg:pt-24">
+        
+        <div className="absolute left-0 right-0 top-[12%] z-30 flex flex-col items-center px-4 text-center sm:top-[16%]">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -105,60 +106,47 @@ export default function Hero() {
           <AnimatedHeadline />
         </div>
 
-        <div className="relative z-0 mx-auto -mt-4 w-full max-w-6xl px-4 sm:-mt-6 sm:px-6 lg:-mt-8 lg:max-w-[1600px]">
-          <motion.div
-            initial={{ opacity: 0, y: 40, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="relative h-[55vh] w-full overflow-hidden rounded-3xl bg-transparent sm:h-[68vh] lg:h-[80vh]"
-          >
-            <video
-              src="/assets/videos/hero-showreel.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="absolute inset-0 h-full w-full rounded-3xl object-cover"
-            />
-            {BOWL_LABELS.map((item, i) => (
-              <motion.div
-                key={item.label}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: [0, -6, 0] }}
-                transition={{
-                  opacity: { duration: 0.5, delay: 1.1 + i * 0.15 },
-                  y: {
-                    duration: 3 + i * 0.4,
-                    repeat: Infinity,
-                    repeatType: "mirror",
-                    ease: "easeInOut",
-                    delay: 1.1 + i * 0.15,
-                  },
-                }}
-                className={`absolute z-10 flex items-center gap-1.5 sm:gap-2 rounded-full bg-[#201C19]/60 px-3 py-1.5 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-medium text-white backdrop-blur-md ${item.className}`}
-              >
+        <div className="absolute inset-0 z-0 mx-auto w-full max-w-[1600px]">
+          <video
+            src="/assets/videos/hero-showreel.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 h-full w-full object-contain object-bottom"
+          />
+    
+          {BOWL_LABELS.map((item, i) => (
+            <motion.div
+              key={item.label}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 1.1 + i * 0.15 }}
+              className={`absolute z-10 flex items-center gap-1 sm:gap-1 sm:rounded-[10px] bg-white/20 p-0.5 pr-1.5 sm:p-1 sm:pr-1 text-[9px] sm:text-[px] font-semibold tracking-wide text-white shadow-xl backdrop-blur-md ${item.className}`}
+            >
+              <span className="flex h-4 w-5 shrink-0 items-center justify-center rounded-lg bg-white/25 shadow-inner sm:h-6 sm:w-7 sm:rounded-[10px]">
                 <Image
                   src={item.imageSrc}
                   alt={`${item.label} icon`}
                   width={20}
                   height={20}
-                  className="h-4 w-4 sm:h-5 sm:w-5 object-contain"
+                  className="h-8 w-8 object-contain sm:h-8 sm:w-8"
                   aria-hidden="true"
                 />
-                <span>{item.label}</span>
-              </motion.div>
-            ))}
-          </motion.div>
+              </span>
+              <span>{item.label}</span>
+            </motion.div>
+          ))}
         </div>
 
-        <div className="absolute bottom-24 left-4 z-10 flex flex-col gap-4 sm:bottom-10 sm:left-6 sm:gap-6 lg:bottom-14 lg:left-16">
+        <div className="absolute bottom-7 left-4 z-20 flex flex-col gap-4 sm:bottom-8 sm:left-8 lg:left10 lg:gap-3">
           <div className="flex flex-col gap-2 sm:gap-3">
             <div className="flex gap-2 sm:gap-3">
               <motion.span
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 1.3 }}
-                className="rounded-full border border-white/20 px-4 py-1.5 sm:px-6 sm:py-2.5 text-xs sm:text-[15px] font-medium text-white"
+                className="rounded-full border border-white/20 px-3 py-1 text-xs font-medium text-white sm:px-4 sm:py-2 sm:text-[10px]"
               >
                 {PILLS[0]}
               </motion.span>
@@ -168,7 +156,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 1.42 }}
-                className="rounded-full border border-white/20 px-4 py-1.5 sm:px-6 sm:py-2.5 text-xs sm:text-[15px] font-medium text-white"
+                className="rounded-full border border-white/20 px-3 py-1 text-xs font-medium text-white sm:px-4 sm:py-2 sm:text-[10px]"
               >
                 {PILLS[1]}
               </motion.span>
@@ -176,7 +164,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 1.54 }}
-                className="rounded-full border border-white/20 px-4 py-1.5 sm:px-6 sm:py-2.5 text-xs sm:text-[15px] font-medium text-white"
+                className="rounded-full border border-white/20 px-3 py-1 text-xs font-medium text-white sm:px-4 sm:py-2 sm:text-[10px]"
               >
                 {PILLS[2]}
               </motion.span>
@@ -189,12 +177,12 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 1.6 }}
             className="max-w-[200px] sm:max-w-xs"
           >
-            <h2 className="text-xl sm:text-[32px] font-semibold leading-tight tracking-tight text-white">
+            <h2 className="text-xl font-semibold leading-tight tracking-tight text-white sm:text-[20px]">
               From Our Kitchen
               <br />
               to Your Door
             </h2>
-            <p className="mt-2 sm:mt-3 text-xs sm:text-base text-white/60">
+            <p className="text-xs f leading-tight tracking-tight text-white/60 sm:text-[13px]" >
               Healthy eating made effortless. Fuel your body and free your time.
             </p>
           </motion.div>
@@ -205,10 +193,25 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.4 }}
-          className="absolute bottom-0 right-0 z-10 flex items-center gap-1.5 sm:gap-2 rounded-tl-[1.5rem] sm:rounded-tl-[2.5rem] bg-[#c16533] px-5 py-4 sm:px-10 sm:py-7 text-sm sm:text-lg font-medium text-white transition-colors hover:bg-[#a8572b]"
+          className="group absolute bottom-0 right-0 z-50 flex items-center gap-2 rounded-tl-[1.5rem] bg-gradient-to-br from-[#d4703a] to-[#b55829] px-6 py-5 text-sm font-semibold text-white shadow-[0_0_40px_rgba(212,112,58,0.3)] transition-all duration-300 hover:from-[#df763d] hover:to-[#bd5b2a] hover:shadow-[0_0_60px_rgba(212,112,58,0.5)] sm:rounded-tl-[2rem] sm:px-10 sm:py-7 sm:text-lg"
         >
-          <span aria-hidden="true" className="text-base sm:text-xl">↗</span> Contact Us
+          <div className="relative flex h-5 w-5 items-center justify-center overflow-hidden sm:h-6 sm:w-6">
+            <span
+              aria-hidden="true"
+              className="absolute text-base transition-transform duration-300 ease-out group-hover:-translate-y-full sm:text-xl"
+            >
+              ↗
+            </span>
+            <span
+              aria-hidden="true"
+              className="absolute translate-y-full text-base transition-transform duration-300 ease-out group-hover:translate-y-0 sm:text-xl"
+            >
+              ↗
+            </span>
+          </div>
+          Contact Us
         </motion.a>
+
       </div>
     </section>
   );

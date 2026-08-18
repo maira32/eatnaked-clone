@@ -75,47 +75,45 @@ export default function Goals() {
   const [activeGoal, setActiveGoal] = useState<string | null>("Gain Muscle");
 
   return (
-    <section
+   <section
       id="goals"
       data-nav-label="Goals"
-      className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-black py-24 lg:py-40"
+      className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-black pt-10 pb-12 lg:pt-20 lg:pb-16"
     >
-      <div 
+     <div 
         className="absolute inset-0 z-0 opacity-80"
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px)
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='104' height='128'%3E%3Cpath d='M44 64h16 M52 56v16' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E"),
+            linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px)
           `,
-          backgroundSize: "40px 40px",
+          backgroundSize: "104px 128px, 26px 32px, 26px 32px",
+          backgroundPosition: "left top, left top, left top"
         }}
       />
 
       <div className="relative z-10 mx-auto flex w-full max-w-[100rem] flex-col px-6 md:flex-row md:items-end md:justify-between md:px-12 xl:px-20">
         
-        <div className="mb-12 w-full self-end md:mb-0 md:w-[25%] xl:w-[30%]">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl font-bold leading-[1.1] tracking-tight text-white md:text-5xl lg:text-6xl"
+        <div className="mb-12 w-full self-end md:mb-0 md:w-[25%] xl:w-[30%] md:-translate-x-4 xl:-translate-x-10">
+          <motion.div
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ margin: "-100px" }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            Whatever
-            <br />
-            Your Goal
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="mt-4 text-[13px] text-white/50"
-          >
-            High quality meals for ANY lifestyle
-          </motion.p>
+            <h2 className="text-3xl  leading-[1.1] tracking-tight text-white md:text-4xl lg:text-5xl">
+              Whatever
+              <br />
+              Your Goal
+            </h2>
+            <p className="mt-4 text-[12px] text-white/50">
+              High quality meals for ANY lifestyle
+            </p>
+          </motion.div>
         </div>
 
-        <div className="flex w-full max-w-md flex-col gap-4 md:w-[50%] xl:w-[40%]">
+      <div className="flex w-full max-w-md flex-col gap-4 md:w-[50%] xl:w-[40%]">
           {GOALS_DATA.map((goal) => {
             const isActive = activeGoal === goal.id;
 
@@ -124,21 +122,29 @@ export default function Goals() {
                 layout
                 key={goal.id}
                 onClick={() => setActiveGoal(isActive ? null : goal.id)}
-                className={`relative cursor-pointer overflow-hidden rounded-[2rem] border transition-all duration-500 ${
+                className={`relative cursor-pointer overflow-hidden rounded-[2.5rem] border transition-all duration-500 ${
                   isActive 
                     ? "border-white/10 bg-[#16110f]" 
-                    : "border-[#36190a]/40 bg-gradient-to-r from-[#080504] via-[#36190a] to-[#080504] hover:border-[#4a240f]/60 hover:via-[#4a240f]"
+                    : "border-white/10 bg-[#121212] hover:border-white/20 hover:bg-[#161616]"
                 }`}
               >
-                {isActive && (
-                  <div className="absolute -top-24 left-1/2 h-48 w-[120%] -translate-x-1/2 rounded-full bg-[#c16533] opacity-20 blur-[60px]" />
-                )}
+                <div 
+                  className={`pointer-events-none absolute left-1/2 top-1/2 h-[70%] w-[75%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#f27837] blur-[40px] transition-opacity duration-500 ${
+                    isActive ? "opacity-0" : "opacity-[0.18]"
+                  }`}
+                />
+
+                <div 
+                  className={`pointer-events-none absolute -top-24 left-1/2 h-48 w-[120%] -translate-x-1/2 rounded-full bg-[#f07911] blur-[60px] transition-opacity duration-500 ${
+                    isActive ? "opacity-20" : "opacity-0"
+                  }`} 
+                />
 
                 <motion.div layout className="relative z-10 px-6 py-5 sm:px-8">
                   
                   <div className="flex items-center justify-between">
-                    <motion.div layout className="flex items-center gap-4 text-[15px] font-medium text-white/90">
-                      <span className={isActive ? "text-[#c16533]" : "text-white/40"}>
+                    <motion.div layout className="flex items-center gap-4 text-[16px] font-semibold tracking-wide text-white">
+                      <span className={`transition-colors duration-500 ${isActive ? "text-[#c16533]" : "text-white/50"}`}>
                         {goal.icon}
                       </span>
                       {goal.id}
@@ -171,7 +177,7 @@ export default function Goals() {
                       )}
                     </AnimatePresence>
 
-                    <motion.span layout className="rounded-full border border-white/20 px-3.5 py-1.5 text-[11px] font-medium text-white/80">
+                    <motion.span layout className="rounded-full border border-white/20 px-3.5 py-1.5 text-[12px] font-medium text-white transition-colors duration-500">
                       • {goal.tag}
                     </motion.span>
                   </div>

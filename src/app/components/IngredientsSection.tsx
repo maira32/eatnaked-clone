@@ -90,14 +90,16 @@ export default function IngredientsSection() {
       data-nav-label="Ingredients"
       className="relative flex min-h-[700px] w-full flex-col overflow-hidden bg-black pt-0"
     >
-      <div
-        className="pointer-events-none absolute inset-0 z-0 opacity-80"
+      <div 
+        className="absolute inset-0 z-0 opacity-80"
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px)
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='104' height='128'%3E%3Cpath d='M44 64h16 M52 56v16' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E"),
+            linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px)
           `,
-          backgroundSize: "40px 40px",
+          backgroundSize: "104px 128px, 26px 32px, 26px 32px",
+          backgroundPosition: "left top, left top, left top"
         }}
       />
       <div

@@ -31,16 +31,13 @@ const CARDS = [
 export default function LifestyleSection() {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // Handle looping swipe logic
   const handleDragEnd = (_: unknown, info: { offset: { x: number }; velocity: { x: number } }) => {
     const { offset, velocity } = info;
     const swipePower = Math.abs(offset.x) * velocity.x;
 
     if (offset.x < -50 || swipePower < -10000) {
-      // Swipe Left -> Next Card
       setActiveIndex((prev) => (prev + 1) % CARDS.length);
     } else if (offset.x > 50 || swipePower > 10000) {
-      // Swipe Right -> Previous Card
       setActiveIndex((prev) => (prev - 1 + CARDS.length) % CARDS.length);
     }
   };
@@ -51,15 +48,16 @@ export default function LifestyleSection() {
       data-nav-label="Lifestyle"
       className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-black py-28"
     >
-      {/* Background Grids */}
-      <div
-        className="pointer-events-none absolute inset-0 z-0 opacity-80"
+     <div 
+        className="absolute inset-0 z-0 opacity-80"
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px)
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='104' height='128'%3E%3Cpath d='M44 64h16 M52 56v16' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E"),
+            linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px)
           `,
-          backgroundSize: "40px 40px",
+          backgroundSize: "104px 128px, 26px 32px, 26px 32px",
+          backgroundPosition: "left top, left top, left top"
         }}
       />
       <div
@@ -71,11 +69,9 @@ export default function LifestyleSection() {
         }}
       />
 
-      {/* Carousel Container */}
-      <div className="relative z-10 mx-auto flex h-[500px] w-full max-w-[1200px] items-center justify-center perspective-[1000px]">
-        <AnimatePresence initial={false}>
+<div className="relative z-10 mx-auto flex h-[300px] w-full max-w-[1200px] items-center justify-center perspective-[700px]">    
+      <AnimatePresence initial={false}>
           {CARDS.map((card, i) => {
-            // Determine position in the loop relative to activeIndex
             const offsetIndex = (i - activeIndex + CARDS.length) % CARDS.length;
             
             let state = "center";
@@ -95,15 +91,33 @@ export default function LifestyleSection() {
                 initial={false}
                 animate={state}
                 variants={{
-                  center: { x: "0%", scale: 1, zIndex: 20, opacity: 1, filter: "blur(0px)" },
-                  right: { x: "75%", scale: 0.85, zIndex: 10, opacity: 0.5, filter: "blur(4px)" },
-                  left: { x: "-75%", scale: 0.85, zIndex: 10, opacity: 0.5, filter: "blur(4px)" },
+                  center: { 
+                    x: "0%", 
+                    scale: 1, 
+                    zIndex: 20, 
+                    opacity: 1, 
+                    filter: "blur(0px) brightness(1)" 
+                  },
+                  right: { 
+                    x: "75%", 
+                    scale: 0.85, 
+                    zIndex: 10, 
+                    opacity: 1, 
+                    filter: "blur(4px) brightness(0.4) " 
+                  },
+                  left: { 
+                    x: "-75%", 
+                    scale: 0.85, 
+                    zIndex: 10, 
+                    opacity: 1, 
+                    filter: "blur(4px) brightness(0.4)" 
+                  },
                 }}
                 transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className={`absolute flex h-[460px] w-[85vw] max-w-[800px] cursor-grab flex-col overflow-hidden rounded-[2rem] active:cursor-grabbing ${
+               className={`absolute flex h-[250px] w-[50vw] max-w-[500px] cursor-grab flex-col overflow-hidden rounded-[2rem] active:cursor-grabbing border-8 ${
                   isActive
-                    ? "border border-white/20 shadow-[0_0_50px_-15px_rgba(244,110,53,0.3)]"
-                    : "border border-transparent"
+                    ? "border-white/20 shadow-[0_0_50px_-15px_rgba(244,110,53,0.3)]"
+                    : "border-white/40" 
                 }`}
               >
                 <Image
@@ -116,7 +130,6 @@ export default function LifestyleSection() {
 
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
 
-                {/* Card Content */}
                 <div className="absolute bottom-10 left-10 flex flex-col items-start">
                   <div>
                     <h3 className="text-4xl font-semibold tracking-tight text-white sm:text-5xl">
@@ -127,16 +140,14 @@ export default function LifestyleSection() {
                     </p>
                   </div>
 
-                  {/* Refined Button matching inspiration precisely */}
                   <a
                     href={card.href}
                     onClick={(e) => {
-                      if (!isActive) e.preventDefault(); // Prevent navigating if clicking side cards
+                      if (!isActive) e.preventDefault();
                     }}
                     className="group mt-6 inline-flex items-center rounded-full border border-white/20 bg-white/10 py-1.5 pl-1.5 pr-6 backdrop-blur-md transition-all duration-300 hover:bg-white/20"
                   >
                     <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-[#f46e35] transition-all duration-300 group-hover:ml-2 group-hover:h-3 group-hover:w-3 group-hover:bg-transparent">
-                      {/* Default Arrow */}
                       <svg
                         className="h-4 w-4 text-white transition-all duration-300 group-hover:scale-0 group-hover:opacity-0"
                         fill="none"
@@ -145,7 +156,6 @@ export default function LifestyleSection() {
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M13 6l6 6-6 6" />
                       </svg>
-                      {/* Hover Dot */}
                       <div className="absolute h-1.5 w-1.5 scale-0 rounded-full bg-white opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100" />
                     </div>
                     <span className="ml-3 text-sm font-semibold text-white transition-all duration-300 group-hover:ml-2">
@@ -159,8 +169,8 @@ export default function LifestyleSection() {
         </AnimatePresence>
       </div>
 
-      <h2 className="relative z-10 mx-auto mt-16 max-w-4xl px-6 text-center text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl">
-        Designed For Your Taste,
+<h2 className="relative z-10 mx-auto mt-3 max-w-4xl px-6 text-center text-4xl  leading-tight tracking-tight text-white sm:text-5xl">
+          Designed For Your Taste,
         <br /> Built For Your Day.
       </h2>
     </section>

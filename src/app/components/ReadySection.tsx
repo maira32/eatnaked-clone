@@ -55,19 +55,18 @@ const TESTIMONIALS = [
 ];
 
 const FLOATERS = [
-  { src: "/assets/images/floating-tomato.png", className: "left-[10%] top-[12%]", size: 100, duration: 5 },
-  { src: "/assets/images/floating-egg.png", className: "right-[4%] top-[3%]", size: 170, duration: 6 },
-  { src: "/assets/images/floating-herb.png", className: "right-[40%] top-[4%]", size: 70, duration: 4.5 },
-  { src: "/assets/images/floating-leaf.png", className: "left-[8%] top-[36%]", size: 130, duration: 4 },
-  { src: "/assets/images/floating-basil.png", className: "right-[12%] top-[35%]", size: 120, duration: 6.5 },
+  { src: "/assets/images/floating-tomato.png", className: "left-[10%] top-[12%]", size: 100, initialX: -80, initialY: -60 },
+  { src: "/assets/images/floating-egg.png", className: "right-[4%] top-[3%]", size: 170, initialX: 90, initialY: -80 },
+  { src: "/assets/images/floating-herb.png", className: "right-[40%] top-[4%]", size: 70, initialX: 0, initialY: -60 },
+  { src: "/assets/images/floating-leaf.png", className: "left-[8%] top-[36%]", size: 130, initialX: -90, initialY: 40 },
+  { src: "/assets/images/floating-basil.png", className: "right-[12%] top-[35%]", size: 120, initialX: 80, initialY: 50 },
 
-   { src: "/assets/images/blur1.png", className: "left-[3%] top-[25%]", size: 100, duration: 5, blur: true },
-   { src: "/assets/images/blur2.png", className: "left-[20%] top-[25%]", size: 50, duration: 5, blur: true },
-   { src: "/assets/images/blur3.png", className: "left-[40%] top-[0%]", size: 180, duration: 5, blur: true },
-    { src: "/assets/images/blur4.png", className: "left-[70%] top-[10%]", size: 50, duration: 5, blur: true },
-    { src: "/assets/images/blur5.png", className: "right-[8%] top-[28%]", size: 50, duration: 5, blur: true },
-    { src: "/assets/images/blur6.png", className: "left-[30%] top-[15%]", size: 70, duration: 5, blur: true },
-  
+  { src: "/assets/images/blur1.png", className: "left-[3%] top-[25%]", size: 100, initialX: -60, initialY: 0, blur: true },
+  { src: "/assets/images/blur2.png", className: "left-[20%] top-[25%]", size: 50, initialX: -40, initialY: -30, blur: true },
+  { src: "/assets/images/blur3.png", className: "left-[40%] top-[0%]", size: 180, initialX: 0, initialY: -100, blur: true },
+  { src: "/assets/images/blur4.png", className: "left-[70%] top-[10%]", size: 50, initialX: 40, initialY: -40, blur: true },
+  { src: "/assets/images/blur5.png", className: "right-[8%] top-[28%]", size: 50, initialX: 60, initialY: 20, blur: true },
+  { src: "/assets/images/blur6.png", className: "left-[30%] top-[15%]", size: 70, initialX: -30, initialY: -50, blur: true },
 ];
 
 const BLOBS = [
@@ -82,23 +81,18 @@ function TestimonialCard({ testimonial }: { testimonial: (typeof TESTIMONIALS)[n
     <motion.div
       whileHover={{ y: -4 }}
       transition={{ duration: 0.25 }}
-
       className="relative w-[340px] shrink-0 rounded-[1.25rem] bg-gradient-to-br from-white/20 via-transparent to-[#f46e35] p-[5px] sm:w-[450px]"
     >
       <div className="relative flex h-full flex-col overflow-hidden rounded-[1.15rem] bg-[#0c0c0c] px-7 py-7 shadow-2xl">
-        
         <p className="relative text-[13px] font-semibold tracking-wide text-white">
           {testimonial.name}
         </p>
-        
         <p className="relative mt-1 text-[9px] font-medium text-[#f46e35]">
           {testimonial.role}
         </p>
-        
         <p className="relative mt-4 text-[11px] leading-relaxed text-white/60">
           &ldquo;{testimonial.quote}&rdquo;
         </p>
-        
       </div>
     </motion.div>
   );
@@ -136,18 +130,21 @@ export default function ReadySection() {
   }, []);
 
   return (
-<section 
+    <section 
       id="ready" 
       data-nav-label="Ready"
       className="relative w-full overflow-hidden bg-black py-28"
-    >      <div 
-        className="pointer-events-none absolute inset-0 z-0 opacity-80"
+    >    
+      <div 
+        className="absolute inset-0 z-0 opacity-80"
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px)
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='104' height='128'%3E%3Cpath d='M44 64h16 M52 56v16' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E"),
+            linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px)
           `,
-          backgroundSize: "40px 40px",
+          backgroundSize: "104px 128px, 26px 32px, 26px 32px",
+          backgroundPosition: "left top, left top, left top"
         }}
       />
 
@@ -160,16 +157,24 @@ export default function ReadySection() {
       ))}
 
       {FLOATERS.map((item, i) => (
-        <div
+        <motion.div
           key={i}
           aria-hidden="true"
+          initial={{ opacity: 0, x: item.initialX, y: item.initialY, scale: 0.8 }}
+          whileInView={{ opacity: item.blur ? 0.5 : 1, x: 0, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{
+            duration: 1,
+            delay: i * 0.05,
+            ease: [0.22, 1, 0.36, 1],
+          }}
           className={`pointer-events-none absolute select-none ${item.className} ${
-            item.blur ? "opacity-50 blur-[2px]" : ""
+            item.blur ? "blur-[2px]" : ""
           }`}
           style={{ width: item.size, height: item.size }}
         >
           <Image src={item.src} alt="" fill className="object-contain" />
-        </div>
+        </motion.div>
       ))}
 
       <div className="relative z-10 flex flex-col items-center px-6 text-center">
@@ -248,8 +253,8 @@ export default function ReadySection() {
           className="pointer-events-none absolute z-20 -translate-x-1/2 -translate-y-1/2"
         >
           <span className="flex items-center gap-2 whitespace-nowrap rounded-full border border-white/10 bg-[#2a2a2a]/80 px-5 py-2 text-[15px] font-medium text-white shadow-xl backdrop-blur-md">
-  Drag <span aria-hidden="true" className="text-lg leading-none">↔</span>
-</span>
+            Drag <span aria-hidden="true" className="text-lg leading-none">↔</span>
+          </span>
         </motion.div>
       </div>
     </section>
