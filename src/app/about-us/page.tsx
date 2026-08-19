@@ -43,7 +43,7 @@ export default function AboutUsPage() {
             </p>
 
             <a
-              href="/menu"
+              href=""
               className="group mt-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-[#2a170f]/80 p-1.5 pr-6 text-sm font-semibold text-white backdrop-blur-md transition-all duration-300 hover:bg-[#3d1f14]"
             >
               <div className="relative flex h-9 w-9 items-center justify-center">

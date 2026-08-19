@@ -23,8 +23,8 @@ export default function Navbar() {
       className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-6 py-6 lg:px-16 lg:py-8"
     >
       <div className="flex items-center gap-6 lg:gap-10">
-        <Link 
-          href="/" 
+        <Link
+          href="/"
           className="flex shrink-0 items-center gap-2 transition-transform duration-300 hover:scale-90"
         >
           <Image
@@ -53,14 +53,30 @@ export default function Navbar() {
             <Link
               key={link.label}
               href={link.href}
-              className={`group flex items-center gap-2 text-[14px] font-medium transition-colors duration-300 ${
-                isActive ? "text-orange-500 font-semibold" : "text-white/90 hover:text-orange-500"
-              }`}
+              className="group flex items-center gap-2 text-[14px] font-medium"
             >
-              <span className={`h-1 w-1 rounded-full transition-colors duration-300 ${
-                isActive ? "bg-orange-500" : "bg-white/60 group-hover:bg-orange-500"
-              }`} />
-              {link.label}
+              <span
+                className={`h-1 w-1 rounded-full transition-colors duration-300 ${
+                  isActive ? "bg-orange-500" : "bg-white/60 group-hover:bg-orange-500"
+                }`}
+              />
+
+              <span className="relative h-5 overflow-hidden">
+                <span
+                  className={`flex h-5 items-center text-white transition-transform duration-250 ease-out ${
+                    isActive ? "translate-y-5" : "group-hover:translate-y-5"
+                  }`}
+                >
+                  {link.label}
+                </span>
+                <span
+                  className={`absolute bottom-full left-0 flex h-5 items-center text-orange-500 transition-transform duration-250 ease-out ${
+                    isActive ? "translate-y-5" : "group-hover:translate-y-5"
+                  }`}
+                >
+                  {link.label}
+                </span>
+              </span>
             </Link>
           );
         })}
@@ -97,7 +113,7 @@ export default function Navbar() {
                 />
               </svg>
             </span>
-            
+
             <span className="absolute h-1.5 w-1.5 scale-0 rounded-full bg-white opacity-0 transition-all duration-300 ease-out group-hover:scale-100 group-hover:opacity-100" />
           </div>
           Order Now

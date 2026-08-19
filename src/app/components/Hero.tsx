@@ -146,7 +146,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 1.3 }}
-                className="rounded-full border border-white/20 px-3 py-1 text-xs font-medium text-white sm:px-4 sm:py-2 sm:text-[10px]"
+                className="rounded-full border border-white/20 px-3 py-1 text-xs font-medium text-white sm:px-4 sm:py-2 sm:text-[15px]"
               >
                 {PILLS[0]}
               </motion.span>
@@ -156,7 +156,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 1.42 }}
-                className="rounded-full border border-white/20 px-3 py-1 text-xs font-medium text-white sm:px-4 sm:py-2 sm:text-[10px]"
+                className="rounded-full border border-white/20 px-3 py-1 text-xs font-medium text-white sm:px-4 sm:py-2 sm:text-[15px]"
               >
                 {PILLS[1]}
               </motion.span>
@@ -164,7 +164,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 1.54 }}
-                className="rounded-full border border-white/20 px-3 py-1 text-xs font-medium text-white sm:px-4 sm:py-2 sm:text-[10px]"
+                className="rounded-full border border-white/20 px-3 py-1 text-xs font-medium text-white sm:px-4 sm:py-2 sm:text-[15px]"
               >
                 {PILLS[2]}
               </motion.span>
@@ -177,12 +177,12 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 1.6 }}
             className="max-w-[200px] sm:max-w-xs"
           >
-            <h2 className="text-xl font-semibold leading-tight tracking-tight text-white sm:text-[20px]">
+            <h2 className="text-xl font-semibold leading-tight tracking-tight text-white sm:text-[25px]">
               From Our Kitchen
               <br />
               to Your Door
             </h2>
-            <p className="text-xs f leading-tight tracking-tight text-white/60 sm:text-[13px]" >
+            <p className="text-xs f leading-tight tracking-tight text-white/60 sm:text-[17px]" >
               Healthy eating made effortless. Fuel your body and free your time.
             </p>
           </motion.div>

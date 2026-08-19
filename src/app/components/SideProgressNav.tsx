@@ -40,7 +40,16 @@ export default function SideProgressNav() {
     return () => observer.disconnect();
   }, []);
 
-const isVisible = active !== "Ready" && active !== "Footer";
+  const scrollToSection = (itemName: string) => {
+    const sectionId = itemName.toLowerCase().replace(/\s+/g, "-");
+    const element = document.getElementById(sectionId);
+    
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const isVisible = active !== "Ready" && active !== "Footer";
 
   return (
     <motion.nav
@@ -51,16 +60,21 @@ const isVisible = active !== "Ready" && active !== "Footer";
         pointerEvents: isVisible ? "auto" : "none" 
       }}
       transition={{ duration: 0.4, ease: "easeInOut" }}
-      aria-hidden="true"
-className="flex fixed right-2 md:right-5 top-1/2 -translate-y-1/2 z-50 flex-col items-end gap-2 scale-90 md:scale-100 origin-right"
+      aria-label="Page sections"
+      className="flex fixed right-2 md:right-5 top-1/2 -translate-y-1/2 z-50 flex-col items-end gap-2 scale-90 md:scale-100 origin-right"
     >
       {ITEMS.map((item) => {
         const isActive = item === active;
         return (
-          <div key={item} className="flex items-center gap-3">
+          <button 
+            key={item} 
+            onClick={() => scrollToSection(item)}
+            className="group flex items-center gap-3 cursor-pointer transition-opacity hover:opacity-80"
+            aria-label={`Scroll to ${item} section`}
+          >
             <span
-              className={`text-[7px] uppercase font-medium tracking-wider transition-colors duration-300 ${
-                isActive ? "text-[#c16533]" : "text-white/30 hover:text-white/50  gap-3"
+              className={`text-[10px] uppercase font-medium tracking-wider transition-colors duration-300 ${
+                isActive ? "text-[#c16533]" : "text-white/30 group-hover:text-white/50"
               }`}
             >
               {item}
@@ -89,9 +103,9 @@ className="flex fixed right-2 md:right-5 top-1/2 -translate-y-1/2 z-50 flex-col 
                 />
               </motion.svg>
             ) : (
-              <span className="h-[1px] w-5 bg-white/30 transition-colors duration-300" />
+              <span className="h-[1px] w-5 bg-white/30 transition-colors duration-300 group-hover:bg-white/50" />
             )}
-          </div>
+          </button>
         );
       })}
     </motion.nav>
