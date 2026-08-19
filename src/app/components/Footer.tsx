@@ -8,11 +8,11 @@ export default function Footer() {
   };
 
   return (
-    <footer
-      id="footer"
-      data-nav-label="Footer"
-      className="relative flex min-h-[70vh] w-full flex-col justify-end overflow-hidden bg-black pb-8 pt-32"
-    >
+   <footer
+  id="footer"
+  data-nav-label="Footer"
+  className="relative flex w-full flex-col overflow-hidden bg-black pb-8 pt-24 lg:pt-32"
+>
       <div 
         className="absolute inset-0 z-0 opacity-80"
         style={{

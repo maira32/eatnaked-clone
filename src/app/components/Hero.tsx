@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import Image from "next/image";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const HEADLINE_LINES = ["EAT Local, EAT", "Healthy, EATnaked."];
 
@@ -60,29 +61,25 @@ export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      if (!sectionRef.current || !contentRef.current) return;
+ useGSAP(() => {
+  if (!sectionRef.current || !contentRef.current) return;
 
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top top",
-        end: "+=100%",
-        pin: true,
-        pinSpacing: true,
-        onUpdate: (self) => {
-          gsap.to(contentRef.current, {
-            opacity: 1 - self.progress * 0.9,
-            scale: 1 - self.progress * 0.08,
-            duration: 0.1,
-            overwrite: "auto",
-          });
-        },
+  ScrollTrigger.create({
+    trigger: sectionRef.current,
+    start: "top top",
+    end: "+=100%",
+    pin: true,
+    pinSpacing: true,
+    onUpdate: (self) => {
+      gsap.to(contentRef.current, {
+        opacity: 1 - self.progress * 0.9,
+        scale: 1 - self.progress * 0.08,
+        duration: 0.1,
+        overwrite: "auto",
       });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+    },
+  });
+}, { scope: sectionRef });
 
   return (
     <section

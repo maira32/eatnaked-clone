@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Footer from '../components/Footer';
-
 
 export default function CommunityPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -11,6 +11,21 @@ export default function CommunityPage() {
   const [isMuted, setIsMuted] = useState(true);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+
+  const scrollSectionRef = useRef<HTMLDivElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: scrollSectionRef,
+    offset: ["start 90%", "start 20%"], 
+  });
+
+  const textOpacity = useTransform(scrollYProgress, [0, 0.4], [0.1, 1]);
+
+  const yCol1 = useTransform(scrollYProgress, [0, 1], [80, 0]);
+  const yCol2 = useTransform(scrollYProgress, [0, 1], [160, 0]);
+  const yCol3 = useTransform(scrollYProgress, [0, 1], [40, 0]);
+  const yCol4 = useTransform(scrollYProgress, [0, 1], [130, 0]);
+  const yCol5 = useTransform(scrollYProgress, [0, 1], [100, 0]);
 
   const togglePlay = () => {
     if (!videoRef.current) return;
@@ -49,7 +64,6 @@ export default function CommunityPage() {
     <main className="relative min-h-screen w-full overflow-hidden bg-[#080808] text-white">
       <Navbar />
 
-
       <div
         className="pointer-events-none absolute inset-0 opacity-70"
         style={{
@@ -65,8 +79,7 @@ export default function CommunityPage() {
 
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,transparent_0%,rgba(0,0,0,0.2)_60%,rgba(0,0,0,0.8)_100%)]" />
 
-      <section className="relative z-10 flex min-h-screen w-full flex-col items-center px-6 pt-32 pb-24 lg:px-12 lg:pt-36">
-        
+      <section className="relative z-10 flex w-full flex-col items-center px-6 pt-32 pb-12 lg:px-12 lg:pt-36">
         <div className="flex max-w-3xl flex-col items-center text-center">
           <h1 className="text-[48px] font-normal leading-[1.05] tracking-[-0.03em] sm:text-[64px] lg:text-[60px]">
             Our Community
@@ -77,27 +90,21 @@ export default function CommunityPage() {
           </p>
 
           <a
-              href="/login"
-              className="group mt-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-[#2a170f]/80 p-1.5 pr-6 text-sm font-semibold text-white backdrop-blur-md transition-all duration-300 hover:bg-[#3d1f14]"
-            >
-              <div className="relative flex h-9 w-9 items-center justify-center">
-                <div className="absolute h-1.5 w-1.5 scale-0 rounded-full bg-white opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100" />
-                <div className="absolute inset-0 flex items-center justify-center rounded-full bg-gradient-to-br from-[#d4703a] to-[#b55829] shadow-md transition-all duration-300 group-hover:scale-0 group-hover:opacity-0">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M5 12h14M13 6l6 6-6 6"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </div>
+            href="/login"
+            className="group mt-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-[#2a170f]/80 p-1.5 pr-6 text-sm font-semibold text-white backdrop-blur-md transition-all duration-300 hover:bg-[#3d1f14]"
+          >
+            <div className="relative flex h-9 w-9 items-center justify-center">
+              <div className="absolute h-1.5 w-1.5 scale-0 rounded-full bg-white opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100" />
+              <div className="absolute inset-0 flex items-center justify-center rounded-full bg-gradient-to-br from-[#d4703a] to-[#b55829] shadow-md transition-all duration-300 group-hover:scale-0 group-hover:opacity-0">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </div>
-              <span className="transition-all duration-300 group-hover:ml-1">
-                Join Us
-              </span>
-            </a>
+            </div>
+            <span className="transition-all duration-300 group-hover:ml-1">
+              Join Us
+            </span>
+          </a>
         </div>
 
         <div 
@@ -108,7 +115,6 @@ export default function CommunityPage() {
             <video
               ref={videoRef}
               src="/assets/videos/kitchen-in-action.mp4"
-
               loop
               muted={isMuted}
               playsInline
@@ -133,7 +139,6 @@ export default function CommunityPage() {
             </div>
 
             <div className="absolute inset-x-0 bottom-0 flex items-center gap-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-6 py-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-              
               <span className="text-xs font-medium text-white/90 min-w-[35px]">
                 {formatTime(currentTime)}
               </span>
@@ -165,13 +170,53 @@ export default function CommunityPage() {
                 )}
               </button>
             </div>
-
           </div>
         </div>
-
       </section>
-                  <Footer/>
-      
+
+      <section ref={scrollSectionRef} className="relative z-10 w-full px-4 pb-48 pt-16 lg:px-8 flex flex-col items-center">
+        
+        <motion.h2
+          style={{ opacity: textOpacity }}
+          className="max-w-[1000px] text-center text-2xl font-medium leading-[1.3] text-white sm:text-3xl lg:text-[42px]"
+        >
+          <span className="text-[#f46e35]">EatNaked ✨</span> Donates Healthy Meals To Local Communities, Reducing Food Waste And Promoting Mindful Nutrition.
+        </motion.h2>
+
+        <div className="mt-20 grid w-full max-w-[1400px] grid-cols-2 gap-4 sm:grid-cols-3 md:gap-6 lg:grid-cols-5">
+          
+          <motion.div style={{ y: yCol1 }} className="flex flex-col gap-4 md:gap-6">
+            <img src="/assets/images/community/pic1.webp" alt="" className="h-[220px] w-full rounded-[1.5rem] object-cover" />
+            <img src="/assets/images/community/pic2.webp" alt="" className="h-[260px] w-full rounded-[1.5rem] object-cover" />
+            <img src="/assets/images/community/pic3.webp" alt="" className="hidden h-[240px] w-full rounded-[1.5rem] object-cover sm:block" />
+          </motion.div>
+
+          <motion.div style={{ y: yCol2 }} className="flex flex-col gap-4 md:gap-6">
+            <img src="/assets/images/community/img4.png" alt="" className="h-[280px] w-full rounded-[1.5rem] object-cover" />
+            <img src="/assets/images/community/pic5.jpg" alt="" className="h-[180px] w-full rounded-[1.5rem] object-cover" />
+            <img src="/assets/images/community/pic6.jpg" alt="" className="hidden h-[260px] w-full rounded-[1.5rem] object-cover lg:block" />
+          </motion.div>
+
+          <motion.div style={{ y: yCol3 }} className="flex flex-col gap-4 md:gap-6">
+            <img src="/assets/images/community/pic7.jpg" alt="" className="h-[350px] w-full rounded-[1.5rem] object-cover" />
+            <img src="/assets/images/community/pic8.jpg" alt="" className="h-[370px] w-full rounded-[1.5rem] object-cover" />
+          </motion.div>
+
+          <motion.div style={{ y: yCol4 }} className="flex flex-col gap-4 md:gap-6 hidden sm:flex">
+            <img src="/assets/images/community/pic9.jpg" alt="" className="h-[250px] w-full rounded-[1.5rem] object-cover" />
+            <img src="/assets/images/community/pic10.jpg" alt="" className="h-[210px] w-full rounded-[1.5rem] object-cover" />
+            <img src="/assets/images/community/pic11.jpg" alt="" className="hidden h-[260px] w-full rounded-[1.5rem] object-cover lg:block" />
+          </motion.div>
+
+          <motion.div style={{ y: yCol5 }} className="flex flex-col gap-4 md:gap-6 hidden lg:flex">
+            <img src="/assets/images/community/pic12.png" alt="" className="h-[320px] w-full rounded-[1.5rem] object-cover" />
+            <img src="/assets/images/community/pic13.png" alt="" className="h-[400px] w-full rounded-[1.5rem] object-cover" />
+          </motion.div>
+
+        </div>
+      </section>
+
+      <Footer />
     </main>
   );
 }

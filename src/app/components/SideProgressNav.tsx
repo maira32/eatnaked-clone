@@ -1,6 +1,5 @@
 "use client";
-
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 const ITEMS = [
@@ -12,52 +11,71 @@ const ITEMS = [
   "Our Family",
 ];
 
+const HIDDEN_WHEN = ["Ready", "Footer"];
+const ALL_SECTIONS = [...ITEMS, ...HIDDEN_WHEN];
+function toId(label: string) {
+  return label.toLowerCase().replace(/\s+/g, "-");
+}
+
 export default function SideProgressNav() {
   const [active, setActive] = useState("Fresh");
+  const tickingRef = useRef(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const label = entry.target.getAttribute("data-nav-label");
-            if (label) setActive(label);
-          }
-        });
-      },
-      { rootMargin: "-20% 0px -20% 0px", threshold: 0 }
-    );
+    function computeActive() {
+      const triggerY = window.innerHeight * 0.4;
 
-    const sectionsToObserve = [...ITEMS, "Ready", "Footer"];
+      let current: string | null = null;
+      for (const label of ALL_SECTIONS) {
+        const el = document.getElementById(toId(label));
+        if (!el) continue;
+        const top = el.getBoundingClientRect().top;
+        if (top <= triggerY) {
+          current = label;
+        } else {
+          break;
+        }
+      }
 
-    sectionsToObserve.forEach((item) => {
-      const el = document.getElementById(
-        item.toLowerCase().replace(/\s+/g, "-") 
-      );
-      if (el) observer.observe(el);
-    });
+      if (current) {
+        setActive((prev) => (prev !== current ? current : prev));
+      }
+    }
 
-    return () => observer.disconnect();
+    function onScroll() {
+      if (tickingRef.current) return;
+      tickingRef.current = true;
+      requestAnimationFrame(() => {
+        computeActive();
+        tickingRef.current = false;
+      });
+    }
+
+    computeActive(); 
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   const scrollToSection = (itemName: string) => {
-    const sectionId = itemName.toLowerCase().replace(/\s+/g, "-");
-    const element = document.getElementById(sectionId);
-    
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    const el = document.getElementById(toId(itemName));
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
-  const isVisible = active !== "Ready" && active !== "Footer";
+  const isVisible = !HIDDEN_WHEN.includes(active);
 
   return (
     <motion.nav
       initial={{ opacity: 0, x: 16 }}
-      animate={{ 
-        opacity: isVisible ? 1 : 0, 
+      animate={{
+        opacity: isVisible ? 1 : 0,
         x: isVisible ? 0 : 20,
-        pointerEvents: isVisible ? "auto" : "none" 
+        pointerEvents: isVisible ? "auto" : "none",
       }}
       transition={{ duration: 0.4, ease: "easeInOut" }}
       aria-label="Page sections"
@@ -66,8 +84,8 @@ export default function SideProgressNav() {
       {ITEMS.map((item) => {
         const isActive = item === active;
         return (
-          <button 
-            key={item} 
+          <button
+            key={item}
             onClick={() => scrollToSection(item)}
             className="group flex items-center gap-3 cursor-pointer transition-opacity hover:opacity-80"
             aria-label={`Scroll to ${item} section`}

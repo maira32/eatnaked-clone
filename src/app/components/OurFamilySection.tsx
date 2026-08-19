@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 function DecorativeCircles() {
   return (
     <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center">
-      <div className="relative h-[420px] w-[420px] sm:h-[540px] sm:w-[540px]">
+      <div className="relative h-[420px] w-[420px] sm:h-[540px] sm:w-[540px] lg:h-[700px] lg:w-[700px] xl:h-[900px] xl:w-[900px] 2xl:h-[1100px] 2xl:w-[1100px]">
         <div className="absolute inset-0 rounded-full border border-dashed border-white/15" />
         <div className="absolute inset-[15%] rounded-full border border-dashed border-white/10" />
         <span className="absolute left-[8%] top-[26%] h-3 w-3 rounded-full bg-[#f46e35]" />

@@ -78,7 +78,7 @@ export default function Goals() {
    <section
       id="goals"
       data-nav-label="Goals"
-      className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-black pt-10 pb-12 lg:pt-20 lg:pb-16"
+      className="relative flex w-full flex-col items-center justify-center overflow-hidden bg-black pt-10 pb-12 lg:pt-20 lg:pb-16 xl:pt-50 xl:pb-45"
     >
      <div 
         className="absolute inset-0 z-0 opacity-80"
